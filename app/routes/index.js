@@ -76,7 +76,7 @@ exports.instagram_tag_media_recent = function(req, res) {
     if(max_tag_id || min_tag_id) {
       res.end(JSON.stringify({media:medias,pagination:pagination}));
     } else {
-      res.end(JSON.stringify(medias));  
+      res.end(JSON.stringify(medias));
     }
 
   });
@@ -90,6 +90,34 @@ exports.instagram_location_venue = function(req, res) {
   ig.location(req.params.id, function(err, result, remaining, limit) {
     console.log(err);
     res.end(JSON.stringify(result));
+  });
+
+};
+
+exports.instagram_media_search = function(req, res) {
+
+  ig.use({ client_id: process.env.CLIENT_ID, client_secret: process.env.CLIENT_SECRET});
+
+  // $.getJSON("https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.294351&access_token=ACCESS-TOKEN",function(response)
+
+  var lat = parseFloat(req.query.lat);
+  var lng = parseFloat(req.query.lng);
+
+  var max_timestamp = (req.query.max_timestamp) ? req.query.max_timestamp : null;
+  var min_timestamp = (req.query.min_timestamp) ? req.query.min_timestamp: null;
+  var count = (req.query.count && (req.query.count <= 100)) ? req.query.count : 15;
+
+  var options = {
+    max_timestamp: max_timestamp,
+    min_timestamp: min_timestamp,
+    count: count
+  };
+
+  ig.media_search(lat, lng, options, function(err, medias, remaining, limit) {
+  // ig.media_search(48.4335645654, 2.345645645, function(err, medias, remaining, limit) {
+
+    console.log(err);
+    res.end(JSON.stringify(medias));
   });
 
 };
