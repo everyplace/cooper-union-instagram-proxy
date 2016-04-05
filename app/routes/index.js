@@ -122,6 +122,18 @@ exports.instagram_media_search = function(req, res) {
 
 };
 
+exports.instagram_user_media_recent = function(req, res) {
+
+  ig.use({ client_id: process.env.CLIENT_ID, client_secret: process.env.CLIENT_SECRET});
+
+  ig.user_media_recent(req.params.username, function(err, medias, pagination, remaining, limit) {
+  // ig.media_search(48.4335645654, 2.345645645, function(err, medias, remaining, limit) {
+
+    console.log(err);
+    res.end(JSON.stringify(medias));
+  });
+
+};
 
 
 

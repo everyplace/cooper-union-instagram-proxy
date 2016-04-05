@@ -32,6 +32,7 @@ app.get('/search/location/:lat/:long', routes.json, routes.instagram_location);
 app.get('/search/user/:username', routes.json, routes.instagram_user_search);
 app.get('/search/tag/:tag', routes.json, routes.instagram_tag_media_recent);
 app.get('/user/:username', routes.json, routes.instagram_user_info);
+app.get('/user/:username/recent', routes.json, routes.instagram_user_media_recent);
 app.get('/search/venue/:id', routes.json, routes.instagram_location_venue);
 app.get('/search/media', routes.json, routes.instagram_media_search);
 
